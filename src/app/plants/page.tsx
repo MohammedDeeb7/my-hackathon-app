@@ -1,10 +1,21 @@
-// src/app/plants/page.tsx
 'use client';
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
+import Image from 'next/image';
+
+type Plant = {
+  id: number;
+  name: string;
+  image: string;
+  watering: string;
+  ph: string;
+  temperature: string;
+  sunlight: string;
+  season: string;
+};
 
 export default function PlantsPage() {
-  const [plants, setPlants] = useState<any[]>([]);
+  const [plants, setPlants] = useState<Plant[]>([]);
 
   useEffect(() => {
     async function fetchPlants() {
@@ -24,8 +35,17 @@ export default function PlantsPage() {
       <h1 className="text-2xl font-bold mb-6 text-green-800">Browse Plants</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {plants.map((plant) => (
-          <div key={plant.id} className="border border-green-200 p-4 rounded shadow bg-white hover:shadow-md transition">
-            <img src={plant.image} alt={plant.name} className="w-full h-48 object-cover rounded mb-4" />
+          <div
+            key={plant.id}
+            className="border border-green-200 p-4 rounded shadow bg-white hover:shadow-md transition"
+          >
+            <Image
+              src={plant.image}
+              alt={plant.name}
+              width={400}
+              height={250}
+              className="rounded mb-4 object-cover"
+            />
             <h2 className="text-lg font-bold mb-2 text-green-900">{plant.name}</h2>
             <ul className="text-sm mb-3 text-green-700">
               <li><strong>Watering:</strong> {plant.watering}</li>
