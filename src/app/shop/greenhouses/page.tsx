@@ -16,9 +16,12 @@ export default function GreenhouseShopPage() {
 
   useEffect(() => {
     async function fetchGreenhouses() {
-      const { data, error } = await supabase.from('greenhouses').select('*');
+      const { data, error } = await supabase
+        .from('greenhouses')
+        .select('*');
+
       if (error) console.error(error.message);
-      else setGreenhouses(data);
+      else setGreenhouses(data as Greenhouse[]);
     }
     fetchGreenhouses();
   }, []);

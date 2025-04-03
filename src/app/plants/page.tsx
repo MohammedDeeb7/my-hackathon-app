@@ -19,9 +19,12 @@ export default function PlantsPage() {
 
   useEffect(() => {
     async function fetchPlants() {
-      const { data, error } = await supabase.from('plants').select('*');
+      const { data, error } = await supabase
+        .from('plants')
+        .select('*');
+
       if (error) console.error(error.message);
-      else setPlants(data);
+      else setPlants(data as Plant[]); // ✅ explicitly cast the result
     }
     fetchPlants();
   }, []);
